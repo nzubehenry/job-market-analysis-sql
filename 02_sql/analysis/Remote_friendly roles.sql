@@ -5,8 +5,8 @@ SELECT
 	COUNT(*) total_jobs,
 	CAST(
 	SUM(CASE
-			WHEN job_work_from_home = 1
-			THEN 1 ELSE 0
+		WHEN job_work_from_home = 1
+		THEN 1 ELSE 0
 		END) * 100.0 / COUNT(*) 
 	AS DECIMAL(10,2)) AS remote_percentage
 --Converting the bit(boolean) into numeric values and then using the sum function.

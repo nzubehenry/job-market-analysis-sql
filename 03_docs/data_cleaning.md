@@ -40,7 +40,7 @@ The dataset originally contained multiple worksheets representing different enti
 
 ### 5. Preparing Data for SQL Server
 - Imported cleaned datasets into SQL Server staging tables (`stg_*`)
-- Structured the data for dimensional modelling and analytical querying
+- Structured the data for dimensional modeling and analytical querying
 
 ---
 

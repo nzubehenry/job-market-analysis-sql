@@ -2,11 +2,12 @@
 
 SELECT 
 	skills,
-	ROUND(AVG(salary_annual),2) AS average_salary
+	AVG(salary_annual) AS average_salary
 
 FROM [dbo].[fact_job_postings] f
 JOIN [dbo].[bridge_job_skills] b
 ON f.job_id = b.job_id
+
 JOIN [dbo].[dim_skills] s
 ON b.skill_id = s.skill_id
 

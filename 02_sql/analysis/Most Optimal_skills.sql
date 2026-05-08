@@ -2,7 +2,6 @@
 
 WITH high_demand AS(
 SELECT
-	s.skill_id,
 	s.skills,
 	COUNT (b.skill_id) AS demand_count
 FROM fact_job_postings j INNER JOIN bridge_job_skills b
@@ -11,11 +10,13 @@ ON b.skill_id = s.skill_id
 WHERE 
 	job_title_short like '%Analyst%'
 GROUP BY 
-	s.skill_id,s.skills
+	s.skills
 
-), top_paying_skills AS (
+), 
+
+top_paying_skills AS (
 SELECT
-	s.skill_id,
+	s.skills,
 	ROUND(AVG (salary_annual), 2) avg_salary
 FROM fact_job_postings f 
 INNER JOIN bridge_job_skills b ON
@@ -25,24 +26,23 @@ b.skill_id = s.skill_id
 WHERE 
 	job_title_short like '%Analyst%' AND
 	salary_annual IS NOT NULL
-GROUP BY s.skill_id
+GROUP BY s.skills
 )
 
 SELECT 
-	h.skill_id,
 	h.skills,
-	demand_count,
-	avg_salary
+	h.demand_count,
+	t.avg_salary
 FROM 
 	high_demand h
-INNER JOIN top_paying_skills t ON
-h.skill_id = t.skill_id
+INNER JOIN top_paying_skills t 
+ON h.skills = t.skills
 
---WHERE demand_count > 10
+WHERE demand_count > 10
 
 ORDER BY 
 avg_salary DESC,
-demand_count DESC
+demand_count DESC;
 
 -- Insight:
 -- The analysis reveals a subset of skills that are both highly demanded and associated with higher salaries.

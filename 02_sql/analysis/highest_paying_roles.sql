@@ -2,7 +2,8 @@
 
 SELECT 
 	job_title_short,
-	AVG(salary_annual) AS avg_salary
+	CAST(AVG(salary_annual) AS DECIMAL(10,2))
+	AS avg_salary
 
 FROM 
 	[dbo].[fact_job_postings]
